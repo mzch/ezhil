@@ -32,6 +32,10 @@
 		{{- partial "disqus.html" . -}}
 		{{- end -}}
 
+		{{- if .Site.Params.talkHost -}}
+		{{- partial "talk.html" . -}}
+		{{- end -}}
+
 		{{- if .Site.Params.coralID -}}
 		{{- partial "coral.html" . -}}
 		{{- end -}}
