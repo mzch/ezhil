@@ -14,21 +14,28 @@
 			{{ .Content }}
 		</div>
 
+                {{- if (eq .Site.DisqusShortname "") -}}
+		{{- $.Scratch.Set "isDisqus" false -}}
+		{{- else -}}
 		{{- $.Scratch.Set "isDisqus" true -}}
-
 		{{- if and (isset .Params "type") (in .Site.Params.disableDisqusTypes .Params.type) -}}
 		{{- $.Scratch.Set "isDisqus" false -}}
 		{{- end -}}
-
 		{{- if and (isset .Params "disqus") (eq .Params.disqus false) -}}
 		{{- $.Scratch.Set "isDisqus" false -}}
 		{{- else if and (isset .Params "disqus") (eq .Params.disqus true) -}}
 		{{- $.Scratch.Set "isDisqus" true -}}
 		{{- end -}}
+		{{- end -}}
 
 		{{- if eq ($.Scratch.Get "isDisqus") true -}}
 		{{- partial "disqus.html" . -}}
 		{{- end -}}
+
+		{{- if .Site.Params.coralID -}}
+		{{- partial "coral.html" . -}}
+		{{- end -}}
+
 	</div>
 	{{ partial "footer.html" . }}
 </body>
